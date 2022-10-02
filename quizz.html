@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="style.css" rel="stylesheet">
+    <script type="text/javascript" src="script.js"></script>
+    <title>Quizz</title>
+</head>
+<body>
+    <fieldset>
+        <legend>Quizzz</legend>
+        <form method='POST' action='reponse.php'>
+            <ol>
+            <li>Quelle est la réponse ultime<br/></li>
+                <input type='text' name='ultime' id="ultime"><br/>
+            <li>Quelle est la couleur du cheval blanc d'henri IV ?<br/></li>
+            <div class="radio">
+                <input label='Bleu' type='radio' name='cheval' value='bleu' id='cheval-1'>
+                <input label='Vert' type='radio' name='cheval' value='vert' id='cheval-2'>
+                <input label='Blanc' type='radio' name='cheval' value='blanc' id='cheval-3'>
+            </div>
+            <li>Qui sont les 3 mousquetaires<br/></li>
+            <input type='checkbox' name='mousquetaires[]' value='artagnan' id='mousquetaires-1' >
+            <label for='mousquetaires-1'>D'artagnan</label>
+            
+            <input type='checkbox' name='mousquetaires[]' value='athos' id='mousquetaires-2' >
+            <label for='mousquetaires-2'>Athos</label>
+
+            <input type='checkbox' name='mousquetaires[]' value='porthos' id='mousquetaires-3' >
+            <label for='mousquetaires-3'>Porthos</label>
+
+            <input type='checkbox' name='mousquetaires[]' value='aramis' id='mousquetaires-4' >
+            <label for='mousquetaires-4'>Aramis</label>
+
+            <input type='checkbox' name='mousquetaires[]' value='gazo' id='mousquetaires-5' >
+            <label for='mousquetaires-5'>Gazo</label>
+
+            <li>Quelle est l'acteur principal du film inception<br/></li>
+            <select name='acteur' id="acteur">
+                <option value="" id="acteur-0">-----------------------------</option>
+                <option value='tomholland' id='acteur-1'>Tom Holland</option>
+                <option value='leonardodicaprio' id='acteur-2'>Leonardo DiCaprio</option>
+                <option value='morganfreeman' id='acteur-3'>Morgan Freeman</option>
+            </select>
+            <li>Choisis la bonne couleur, courage !<br/></li>
+            <input type='color' name='whatscolor' id='whatscolor' >
+            <li>Quelle est la date de l'attentat des Tours Jumelles<br/></li>
+            <input type='date' name='twins' id='twins' >
+            <li>Quelle est l'année de fin de la 2ème Guerre Mondiale<br/></li>
+            <input type='range' name='ww2' id='ww2' value='1900' min='1900' max='2000'  oninput='this.nextElementSibling.value = this.value' step='5'>
+            <output>1900</output><li>Quelle est la durée exacte du film Inception<br/>
+            <input type='time' name='durer' id='durer' >
+            <li>Quelle est le chiffre du malheur pour la culture chinoise<br/></li>
+                <input type='number' min='1' max='9' name='ultimate' id="ultimate"><br/>
+            </ol>
+            <input type='submit' value='Repondre'>
+            <input type='reset' value='Réinitialiser'>
+            <br>
+            <span id="error"></span>
+        </form>
+    </fieldset>
+    <script>
+        var all_checkbox_mousquetaires = document.querySelectorAll('[name="mousquetaires[]"]')
+        var input_number = document.querySelector('[name="ultimate"]')
+        input_number.addEventListener('change', function(e){
+            var value = input_number.value
+            if ((value > 9) || (value < 1)){
+                input_number.setAttribute('max', 9)
+                input_number.value = 1
+                input_number.setAttribute('min', 1)
+            }
+        })
+        var count = 0
+        var count_onload = 0
+        all_checkbox_mousquetaires.forEach(function(e){
+            e.addEventListener('click', function(element){
+                if(e.checked){
+                    count ++;
+                }else{
+                    if (count != 0 ){
+                        count --;
+                    }
+                }
+                if(count < 3){
+                    all_checkbox_mousquetaires.forEach(function(ele){
+                        ele.disabled = false;
+                    })
+                }else{
+                    all_checkbox_mousquetaires.forEach(function(ele){
+                        if (ele.checked === false){
+                            ele.disabled = true;
+                        }
+                        
+                    })
+                }
+            })
+        })
+
+        var all_input = document.querySelectorAll('input[id]')
+        all_input.forEach(element=>{
+            var check = 0
+            var type = element.type
+            var value = element.value
+            if(type == 'text'){
+
+            }else if(type == 'number'){
+                if(value != ''){
+                    check ++;
+                }
+            }else if(type == 'date'){
+                if(value != ''){
+                    check ++;
+                }
+            }else if(type == 'time'){
+                if(value != ''){
+                    check ++;
+                }
+            }
+            console.log(value+" "+type)
+        })
+        
+
+        function error_display(){
+            var get_err = window.location.search.substring(5)
+            if (get_err == 1){
+                var span= document.getElementById('error')
+                span.innerHTML = "Vous devez remplir tous les champs du quizz"
+            }
+        }
+
+        error_display(); 
+    </script>
+</body>
+</html>
