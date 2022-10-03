@@ -1,4 +1,5 @@
 <?php
+//
 $answers = [
     "ultime" => [
         "answer" => "42",
@@ -8,12 +9,12 @@ $answers = [
     "cheval" => [
         "answer" => "blanc",
         "text" => "Quelle est la couleur du cheval blanc d'henri IV ?",
-        "score" => 2
+        "score" => 1
     ],
     "mousquetaires" => [
         "answer"=> array('athos', 'porthos', 'aramis'),
         "text"=> "Qui sont les 3 mousquetaires",
-        "score"=> 3
+        "score"=> 1
     ],
     "acteur" => [
         "answer" => "leonardodicaprio",
@@ -42,11 +43,65 @@ $answers = [
     ],
     "ultimate" => [
         "answer" => "4",
-        "text" => "Quelle est le chiffre du malheur pour la culture chinoise",
+        "text" => "Quelle est le chiffre du malheur dans la culture chinoise",
         "score" => 1
     ],
+    "dragonflight" => [
+        "answer" => "2022-11-29T00:01",
+        "text" => "Quelle est la date et l'heure exacte de sortie de la nouvelle extension de World Of Warcraft (Dragonflight)",
+        "score" => 1
+    ],
+    "email" => [
+        "answer" => "exemple@exemple.fr",
+        "text" => "Entrez un exemple d'email (courage)",
+        "score" => 1
+    ],
+    "file" => [
+        "answer" => "B.B.-JACQUES-HH-1600x1600.jpeg",
+        "text" => "Envoyez la première photo de google images associé à la recherche 'B.B Jacques'",
+        "score" => 1
+    ],
+    "image" => [
+        "answer" => "B.B.-JACQUES-HH-1600x1600.jpeg",
+        "text" => "Même questions que celle d'avant",
+        "score" => 1
+    ],
+    "hidden" => [
+        "answer" => "ChangeTuPerdDesPoints",
+        "text" => "Question caché",
+        "score" => 1
+    ],
+    "month" => [
+        "answer" => "2023-02",
+        "text" => "Entrez le mois de février 2023",
+        "score" => 1
+    ],
+    "password" => [
+        "answer" => "yes",
+        "text" => "Entrez 3 caractères",
+        "score" => 1
+    ],
+    "search" => [
+        "answer" => "recette lasagne",
+        "text" => "Entrez la recherche pertinante pour une recette de lasagnes",
+        "score" => 1
+    ],
+    "tel" => [
+        "answer" => "0606060606",
+        "text" => "Entré le numéro 0606060606 et gagnez un point",
+        "score" => 1
+    ],
+    "url" => [
+        "answer" => "https://www.youtube.com/",
+        "text" => "Entrez l'url de youtube",
+        "score" => 1
+    ],
+    "week" => [
+        "answer" => "2022-W24",
+        "text" => "Entrez la semaine de sortie de la mixtape ZZCCMXTP",
+        "score" => 1
+    ]
 ];
-
 $all_points = 0;
 
 foreach($answers as $clefs=>$valeurs){
@@ -62,8 +117,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     $count = 0;
     if (isset($_POST) && !empty($_POST)){
         foreach($_POST as $cle=>$valeur){
-            if($valeur == ""){
-                header('Location: quizz.html?err=1');        
+            if($valeur==""){
+                header('Location: quizz.html?err=1');
             }
             if ($cle != 'mousquetaires'){
                 $valeur = htmlentities($valeur);
@@ -94,14 +149,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                     $score += 3;
                 }else{
                     $all_reponses = implode(" / ", $valeur);
-                    echo 'Vous avez eu faux a la question : "'.$answers[$cle]['text'].'" | la réponses était : "'.$answers[$cle]['answer'][0]." / ".$answers[$cle]['answer'][1]." / ".$answers[$cle]['answer'][2].'" Vous avez mis : "'.$all_reponses.'"<br/>';                   
+                    echo 'Vous avez eu faux a la question : "'.$answers[$cle]['text'].'" | la réponses était : "'.$answers[$cle]['answer'][0]." / ".$answers[$cle]['answer'][1]." / ".$answers[$cle]['answer'][2].'" Vous avez mis : "'.$all_reponses.'"<br/>';
                 }
             }
-            
+
         }
         echo "Votre score :".$score."/".$all_points;
     }else{
-        header('Locations: quizz.html?err=1');
+        header('Location: quizz.html?err=1');
     }
-    
+
 }

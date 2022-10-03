@@ -1,136 +1,139 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="style.css" rel="stylesheet">
-    <script type="text/javascript" src="script.js"></script>
-    <title>Quizz</title>
-</head>
-<body>
-    <fieldset>
-        <legend>Quizzz</legend>
-        <form method='POST' action='reponse.php'>
-            <ol>
-            <li>Quelle est la réponse ultime<br/></li>
-                <input type='text' name='ultime' id="ultime"><br/>
-            <li>Quelle est la couleur du cheval blanc d'henri IV ?<br/></li>
-            <div class="radio">
-                <input label='Bleu' type='radio' name='cheval' value='bleu' id='cheval-1'>
-                <input label='Vert' type='radio' name='cheval' value='vert' id='cheval-2'>
-                <input label='Blanc' type='radio' name='cheval' value='blanc' id='cheval-3'>
-            </div>
-            <li>Qui sont les 3 mousquetaires<br/></li>
-            <input type='checkbox' name='mousquetaires[]' value='artagnan' id='mousquetaires-1' >
-            <label for='mousquetaires-1'>D'artagnan</label>
-            
-            <input type='checkbox' name='mousquetaires[]' value='athos' id='mousquetaires-2' >
-            <label for='mousquetaires-2'>Athos</label>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="style.css" rel="stylesheet">
+        <script src="script.js"></script>
+        <title>Quizz</title>
+    </head>
+    <body>
+        <fieldset>
+            <legend>Quizzz</legend>
+            <form method='POST' action='reponse.php'>
+                <ol>
+                    <li>Quelle est la réponse ultime<br>
+                        <label for="ultime"></label>
+                        <input type='text' name='ultime' id="ultime"><br>
+                        <br><span id="error-ultime"></span>
+                    </li>
+                    <li>Quelle est la couleur du cheval blanc d'henri IV ?<br>
+                        <div class="radio">
+                            <label for='cheval-1'></label>
+                            <input label='Bleu' type='radio' name='cheval' value='bleu' id='cheval-1'>
+                            <label for='cheval-2'></label>
+                            <input label='Vert' type='radio' name='cheval' value='vert' id='cheval-2'>
+                            <label for='cheval-3'></label>
+                            <input label='Blanc' type='radio' name='cheval' value='blanc' id='cheval-3'>
+                            <br><span id="error-cheval"></span>
+                        </div>
+                    </li>
+                    <li>Qui sont les 3 mousquetaires<br>
+                        <input type='checkbox' name='mousquetaires[]' value='artagnan' id='mousquetaires-1' >
+                        <label for='mousquetaires-1'>D'artagnan</label>
 
-            <input type='checkbox' name='mousquetaires[]' value='porthos' id='mousquetaires-3' >
-            <label for='mousquetaires-3'>Porthos</label>
+                        <input type='checkbox' name='mousquetaires[]' value='athos' id='mousquetaires-2' >
+                        <label for='mousquetaires-2'>Athos</label>
 
-            <input type='checkbox' name='mousquetaires[]' value='aramis' id='mousquetaires-4' >
-            <label for='mousquetaires-4'>Aramis</label>
+                        <input type='checkbox' name='mousquetaires[]' value='porthos' id='mousquetaires-3' >
+                        <label for='mousquetaires-3'>Porthos</label>
 
-            <input type='checkbox' name='mousquetaires[]' value='gazo' id='mousquetaires-5' >
-            <label for='mousquetaires-5'>Gazo</label>
+                        <input type='checkbox' name='mousquetaires[]' value='aramis' id='mousquetaires-4' >
+                        <label for='mousquetaires-4'>Aramis</label>
 
-            <li>Quelle est l'acteur principal du film inception<br/></li>
-            <select name='acteur' id="acteur">
-                <option value="" id="acteur-0">-----------------------------</option>
-                <option value='tomholland' id='acteur-1'>Tom Holland</option>
-                <option value='leonardodicaprio' id='acteur-2'>Leonardo DiCaprio</option>
-                <option value='morganfreeman' id='acteur-3'>Morgan Freeman</option>
-            </select>
-            <li>Choisis la bonne couleur, courage !<br/></li>
-            <input type='color' name='whatscolor' id='whatscolor' >
-            <li>Quelle est la date de l'attentat des Tours Jumelles<br/></li>
-            <input type='date' name='twins' id='twins' >
-            <li>Quelle est l'année de fin de la 2ème Guerre Mondiale<br/></li>
-            <input type='range' name='ww2' id='ww2' value='1900' min='1900' max='2000'  oninput='this.nextElementSibling.value = this.value' step='5'>
-            <output>1900</output><li>Quelle est la durée exacte du film Inception<br/>
-            <input type='time' name='durer' id='durer' >
-            <li>Quelle est le chiffre du malheur pour la culture chinoise<br/></li>
-                <input type='number' min='1' max='9' name='ultimate' id="ultimate"><br/>
-            </ol>
-            <input type='submit' value='Repondre'>
-            <input type='reset' value='Réinitialiser'>
-            <br>
-            <span id="error"></span>
-        </form>
-    </fieldset>
-    <script>
-        var all_checkbox_mousquetaires = document.querySelectorAll('[name="mousquetaires[]"]')
-        var input_number = document.querySelector('[name="ultimate"]')
-        input_number.addEventListener('change', function(e){
-            var value = input_number.value
-            if ((value > 9) || (value < 1)){
-                input_number.setAttribute('max', 9)
-                input_number.value = 1
-                input_number.setAttribute('min', 1)
-            }
-        })
-        var count = 0
-        var count_onload = 0
-        all_checkbox_mousquetaires.forEach(function(e){
-            e.addEventListener('click', function(element){
-                if(e.checked){
-                    count ++;
-                }else{
-                    if (count != 0 ){
-                        count --;
-                    }
-                }
-                if(count < 3){
-                    all_checkbox_mousquetaires.forEach(function(ele){
-                        ele.disabled = false;
-                    })
-                }else{
-                    all_checkbox_mousquetaires.forEach(function(ele){
-                        if (ele.checked === false){
-                            ele.disabled = true;
-                        }
-                        
-                    })
-                }
-            })
-        })
+                        <input type='checkbox' name='mousquetaires[]' value='gazo' id='mousquetaires-5' >
+                        <label for='mousquetaires-5'>Gazo</label>
+                        <br><span id="error-mousquetaires"></span>
+                    </li>
+                    <li>Quelle est l'acteur principal du film inception<br>
+                    <label for="acteur"></label>
+                        <select name='acteur' id="acteur">
+                            <option value="None" id="acteur-0">-----------------------------</option>
+                            <option value='tomholland' id='acteur-1'>Tom Holland</option>
+                            <option value='leonardodicaprio' id='acteur-2'>Leonardo DiCaprio</option>
+                            <option value='morganfreeman' id='acteur-3'>Morgan Freeman</option>
+                        </select>
+                        <br><span id="error-acteur"></span>
+                    </li>
+                    <li>Choisissez la bonne couleur, courage !<br>
+                        <label for='whatscolor'></label>
+                        <input type='color' name='whatscolor' id='whatscolor' >
+                        <br><span id="error-whatscolor"></span>
+                    </li>
+                    <li>Quelle est la date de l'attentat des Tours Jumelles<br>
+                        <input type='date' name='twins' id='twins' >
+                        <br><span id="error-twins"></span>
+                    </li>
+                    <li>Quelle est l'année de fin de la 2ème Guerre Mondiale<br>
+                        <label for='ww2'></label>
+                        <input type='range' name='ww2' id='ww2' value='1900' min='1900' max='2000' oninput='this.nextElementSibling.value = this.value' step='5'>
+                        <output>1900</output>
+                        <br><span id="error-ww2"></span>
+                    </li>
+                    <li>Quelle est la durée exacte du film Inception<br>
+                        <label for='durer'></label>
+                        <input type='time' name='durer' id='durer' >
+                        <br><span id="error-durer"></span>
+                    </li>
+                    <li>Quelle est le chiffre du malheur dans la culture chinoise<br>
+                        <label for="ultimate"></label>
+                        <input type='number' min='1' max='9' name='ultimate' id="ultimate"><br>
+                        <br><span id="error-ultimate"></span>
+                    </li>
+                    <li>Quelle est la date et l'heure exacte de sortie de la nouvelle extension de World Of Warcraft (Dragonflight)<br>
+                        <label for="dragonflight"></label>
+                        <input type="datetime-local" name="dragonflight" id="dragonflight"><br>
+                        <br><span id="error-dragonflight"></span>
+                    </li>
+                    <li>Entrez un exemple d'email (courage)<br>
+                        <label for="email"></label>
+                        <input type="email" name="email" id="email">
+                        <br><span id="error-email"></span>
+                    </li>
+                    <li>Envoyez la première photo de google images associé à la recherche "B.B Jacques"<br>
+                        <input type="file" name="file" id="file">
+                        <input type="hidden" name="hidden" id="hidden" value="ChangeTuPerdDesPoints">
+                        <input alt="not an image" id="image" name="image" type="image" value="B.B.-JACQUES-HH-1600x1600.jpeg">
+                        <br><span id="error-file"></span>
+                    </li>
+                    <li>Entrez le mois de février 2023<br>
+                        <label for="month"></label>
+                        <input type="month" name="month" id="month">
+                        <br><span id="error-month"></span>
+                    </li>
+                    <li>Entrez 3 caractères<br>
+                        <label for="password"></label>
+                        <input type="password" name="password" id="password">
+                        <br><span id="error-password"></span>
+                    </li>
+                    <li>Entrez la recherche pertinante pour une recette de lasagne<br>
+                        <label for="search"></label>
+                        <input type="search" name="search" id="search">
+                        <br><span id="error-search"></span>
+                    </li>
+                    <li>Entrez le numéro 0606060606 et gagnez un point<br>
+                        <label for="tel"></label>
+                        <input type="tel" name="tel" id="tel" max="10" min="10">
+                        <br><span id="error-tel"></span>
+                    </li>
+                    <li>Entrez l'url de youtube (oubliez pas le https)<br>
+                        <label for="url"></label>
+                        <input type="url" name="url" id="url">
+                        <br><span id="error-url"></span>
+                    </li>
+                    <li>Entrez la semaine de sortie de la mixtape ZZCCMXTP<br>
+                        <label for="week"></label>
+                        <input type="week" name="week" id="week">
+                        <br><span id="error-week"></span>
+                    </li>
 
-        var all_input = document.querySelectorAll('input[id]')
-        all_input.forEach(element=>{
-            var check = 0
-            var type = element.type
-            var value = element.value
-            if(type == 'text'){
-
-            }else if(type == 'number'){
-                if(value != ''){
-                    check ++;
-                }
-            }else if(type == 'date'){
-                if(value != ''){
-                    check ++;
-                }
-            }else if(type == 'time'){
-                if(value != ''){
-                    check ++;
-                }
-            }
-            console.log(value+" "+type)
-        })
-        
-
-        function error_display(){
-            var get_err = window.location.search.substring(5)
-            if (get_err == 1){
-                var span= document.getElementById('error')
-                span.innerHTML = "Vous devez remplir tous les champs du quizz"
-            }
-        }
-
-        error_display(); 
-    </script>
-</body>
+                </ol>
+                <button type="submit">Répondre</button>
+                <input type='reset' value='Réinitialiser'>
+                <br>
+                <span id="error"></span>
+            </form>
+        </fieldset>
+    </body>
 </html>
