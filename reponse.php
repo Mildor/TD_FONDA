@@ -64,12 +64,12 @@ $answers = [
     "image" => [
         "answer" => "B.B.-JACQUES-HH-1600x1600.jpeg",
         "text" => "Même questions que celle d'avant",
-        "score" => 1
+        "score" => 0
     ],
     "hidden" => [
         "answer" => "ChangeTuPerdDesPoints",
         "text" => "Question caché",
-        "score" => 1
+        "score" => 5
     ],
     "month" => [
         "answer" => "2023-02",
